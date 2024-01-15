@@ -17,16 +17,9 @@ var switches = [
     ['-e', '--node-env FILE', 'Path to the Nix expression implementing functions that builds NPM packages (defaults to: node-env.nix)'],
     ['-l', '--lock FILE', 'Path to the package-lock.json file that pinpoints the variants of all dependencies'],
     ['-d', '--development', 'Specifies whether to do a development (non-production) deployment for a package.json deployment (false by default)'],
-    ['-4', '--nodejs-4', 'Provides all settings to generate expression for usage with Node.js 4.x (default is: nodejs-14_x)'],
-    ['-6', '--nodejs-6', 'Provides all settings to generate expression for usage with Node.js 6.x (default is: nodejs-14_x)'],
-    ['-8', '--nodejs-8', 'Provides all settings to generate expression for usage with Node.js 8.x (default is: nodejs-14_x)'],
-    ['-10', '--nodejs-10', 'Provides all settings to generate expression for usage with Node.js 10.x (default is: nodejs-14_x)'],
-    ['-12', '--nodejs-12', 'Provides all settings to generate expression for usage with Node.js 12.x (default is: nodejs-14_x)'],
-    ['-13', '--nodejs-13', 'Provides all settings to generate expression for usage with Node.js 13.x (default is: nodejs-14_x)'],
-    ['-14', '--nodejs-14', 'Provides all settings to generate expression for usage with Node.js 14.x (default is: nodejs-14_x)'],
-    ['-16', '--nodejs-16', 'Provides all settings to generate expression for usage with Node.js 16.x (default is: nodejs-14_x)'],
-    ['-18', '--nodejs-18', 'Provides all settings to generate expression for usage with Node.js 18.x (default is: nodejs-14_x)'],
-    ['-20', '--nodejs-20', 'Provides all settings to generate expression for usage with Node.js 20.x (default is: nodejs-14_x)'],
+
+    ['-18', '--nodejs-18', 'Provides all settings to generate expression for usage with Node.js 18.x (default is: nodejs-18_x)'],
+    ['-20', '--nodejs-20', 'Provides all settings to generate expression for usage with Node.js 20.x (default is: nodejs-18_x)'],
     ['--supplement-input FILE', 'A supplement package JSON file that are passed as build inputs to all packages defined in the input JSON file'],
     ['--supplement-output FILE', 'Path to a Nix expression representing a supplementing set of Nix packages provided as inputs to a project (defaults to: supplement.nix)'],
     ['--include-peer-dependencies', 'Specifies whether to include peer dependencies. In npm 2.x, this is the default. (true by default for Node.js 16+)'],
@@ -58,7 +51,7 @@ var supplementNix = "supplement.nix";
 var nodeEnvNix = "node-env.nix";
 var lockJSON;
 var registries = [];
-var nodePackage = "nodejs-14_x";
+var nodePackage = "nodejs-18_x";
 var noCopyNodeEnv = false;
 var bypassCache = true;
 var useFetchGitPrivate = false;
@@ -114,69 +107,6 @@ parser.on('lock', function(arg, value) {
 
 parser.on('development', function(arg, value) {
     production = false;
-});
-
-parser.on('nodejs-4', function(arg, value) {
-    flatten = false;
-    nodePackage = "nodejs-4_x";
-    bypassCache = false;
-    includePeerDependencies = false;
-});
-
-parser.on('nodejs-6', function(arg, value) {
-    flatten = true;
-    nodePackage = "nodejs-6_x";
-    bypassCache = false;
-    includePeerDependencies = false;
-});
-
-parser.on('nodejs-8', function(arg, value) {
-    flatten = true;
-    nodePackage = "nodejs-8_x";
-    bypassCache = true;
-    includePeerDependencies = false;
-});
-
-parser.on('nodejs-10', function(arg, value) {
-    flatten = true;
-    nodePackage = "nodejs-10_x";
-    bypassCache = true;
-    includePeerDependencies = false;
-});
-
-parser.on('nodejs-12', function(arg, value) {
-    flatten = true;
-    nodePackage = "nodejs-12_x";
-    bypassCache = true;
-    includePeerDependencies = false;
-});
-
-parser.on('nodejs-13', function(arg, value) {
-    flatten = true;
-    nodePackage = "nodejs-13_x";
-    bypassCache = true;
-    includePeerDependencies = false;
-});
-
-parser.on('nodejs-14', function(arg, value) {
-    flatten = true;
-    nodePackage = "nodejs-14_x";
-    bypassCache = true;
-    includePeerDependencies = false;
-});
-
-parser.on('nodejs-16', function(arg, value) {
-    flatten = true;
-    nodePackage = "nodejs-16_x";
-    bypassCache = true;
-    includePeerDependencies = true;
-});
-
-parser.on('nodejs-17', function(arg, value) {
-    flatten = true;
-    nodePackage = "nodejs-17_x";
-    bypassCache = true;
-    includePeerDependencies = true;
 });
 
 parser.on('nodejs-18', function(arg, value) {
